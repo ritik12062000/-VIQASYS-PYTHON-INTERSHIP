@@ -1,0 +1,445 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "toc_visible": true,
+      "authorship_tag": "ABX9TyMQQbq1SX9Tvv8icK3yZZG1",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ritik12062000/-VIQASYS-PYTHON-INTERSHIP/blob/main/python\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_4Y7GxHQFYu8",
+        "outputId": "cbf83a03-5a22-4842-862d-dbad9d1e83c2"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a number: 24\n",
+            "Even number\n"
+          ]
+        }
+      ],
+      "source": [
+        "num = int(input(\"Enter a number: \"))\n",
+        "\n",
+        "if num % 2 == 0:\n",
+        "    print(\"Even number\")\n",
+        "else:\n",
+        "    print(\"Odd number\")\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from os import name\n",
+        "name=\"rahul\"\n",
+        "print(name)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "6q13cBZ_FmOc",
+        "outputId": "1e365cec-2240-4518-ec45-822dbb9ba8e4"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "rahul\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for i in range(2,102,2):\n",
+        "  print(i)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "collapsed": true,
+        "id": "TnUQPbC0F4N1",
+        "outputId": "2ba441cd-c7d1-4ed9-cf86-b458f1f328fb"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2\n",
+            "4\n",
+            "6\n",
+            "8\n",
+            "10\n",
+            "12\n",
+            "14\n",
+            "16\n",
+            "18\n",
+            "20\n",
+            "22\n",
+            "24\n",
+            "26\n",
+            "28\n",
+            "30\n",
+            "32\n",
+            "34\n",
+            "36\n",
+            "38\n",
+            "40\n",
+            "42\n",
+            "44\n",
+            "46\n",
+            "48\n",
+            "50\n",
+            "52\n",
+            "54\n",
+            "56\n",
+            "58\n",
+            "60\n",
+            "62\n",
+            "64\n",
+            "66\n",
+            "68\n",
+            "70\n",
+            "72\n",
+            "74\n",
+            "76\n",
+            "78\n",
+            "80\n",
+            "82\n",
+            "84\n",
+            "86\n",
+            "88\n",
+            "90\n",
+            "92\n",
+            "94\n",
+            "96\n",
+            "98\n",
+            "100\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "product = 4\n",
+        "\n",
+        "for i in range(2,5, 6):\n",
+        "    product = product * i\n",
+        "\n",
+        "print(product)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "U9PKw9PQHvK-",
+        "outputId": "152f274b-cb32-4259-9026-024e8308a8e2"
+      },
+      "execution_count": 20,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "8\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "name='naman'\n",
+        "if name == name[::-1]:\n",
+        "  print('palindrome')\n",
+        "else:\n",
+        "  print('not palindrome')\n",
+        "\n",
+        "\n",
+        ""
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "P011lLREIQfL",
+        "outputId": "dd356a5e-62bc-4d18-c924-32e3378a58ba"
+      },
+      "execution_count": 47,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "palindrome\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "name='python'\n",
+        "if name==name[::1]:\n",
+        "  print('reverse')\n",
+        "else:\n",
+        "  print('not reverse')\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "naAc7LlgLDr5",
+        "outputId": "6352c08a-c1ec-405a-eb63-896a1a6461dc"
+      },
+      "execution_count": 50,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "reverse\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "first_name='rahul'\n",
+        "last_name='singh'\n",
+        "full_name=first_name+' '+last_name\n",
+        "print(full_name)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "znkk9ZKnMfkM",
+        "outputId": "7ed8c110-91f0-4ac4-aca8-ff9a2b9069ad"
+      },
+      "execution_count": 53,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "rahul singh\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "name='programming'\n",
+        "name=name[5:8]\n",
+        "print(name)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "bR5eFTUJM-9h",
+        "outputId": "16eb8455-04b7-4cd6-f734-8a45f2ac7f51"
+      },
+      "execution_count": 63,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "amm\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "name='datascience'\n",
+        "name=name[4:11]\n",
+        "print(name)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-nxTVj2iNujv",
+        "outputId": "8c33fc88-88ee-4a6c-c7c0-916bfb8a5c9a"
+      },
+      "execution_count": 72,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "science\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "name='machinelearning'\n",
+        "name=name[0:-8]\n",
+        "print(name)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "MifKujSVOdUi",
+        "outputId": "c18b0845-d956-40d5-e0f8-972fdd57e067"
+      },
+      "execution_count": 94,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "machine\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "name='devloper'\n",
+        "name=name[0:-4]\n",
+        "print(name)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Kjc7s-n3PwKa",
+        "outputId": "a82e1ffa-d24f-48cd-ce82-64ee0163fa31"
+      },
+      "execution_count": 110,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "devl\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "name='artifical'\n",
+        "name=name[0:-5]\n",
+        "print(name)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "qcZg50bCQug4",
+        "outputId": "e7368d05-0fad-45cc-bd07-52e605a5c253"
+      },
+      "execution_count": 141,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "arti\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "name='computer'\n",
+        "name=name[0:-1]\n",
+        "print(name)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "qObXnhhBSURl",
+        "outputId": "5c87c9ed-8573-470c-fd65-e39c216582fb"
+      },
+      "execution_count": 158,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "compute\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "name='datanlaytics'\n",
+        "name=name[0:-6]\n",
+        "print(name)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "eaYv8jOCTbQW",
+        "outputId": "25c527f0-2ecb-4a4c-ca0e-fa50128654bf"
+      },
+      "execution_count": 182,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "datanl\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
