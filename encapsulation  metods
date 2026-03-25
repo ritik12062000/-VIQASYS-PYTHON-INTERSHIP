@@ -1,0 +1,222 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPnMVAgG2iln2prdkgg+Xz+",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ritik12062000/regex-internship-/blob/main/encapsulation%20%20metods\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 5,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "9e2QxnNLSS4J",
+        "outputId": "d53444c5-74b5-440b-cbac-e0586c6ecf99"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "75\n"
+          ]
+        }
+      ],
+      "source": [
+        "class Student:\n",
+        "    def __init__(self):\n",
+        "        self.__marks = 0\n",
+        "\n",
+        "    def set_marks(self, value):\n",
+        "        if value >= 0:\n",
+        "            self.__marks = value\n",
+        "        else:\n",
+        "            print(\"Invalid marks\")\n",
+        "\n",
+        "    def get_marks(self):\n",
+        "        return self.__marks\n",
+        "\n",
+        "s = Student()\n",
+        "s.set_marks(75)\n",
+        "print(s.get_marks())"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# CREATE a class libary book that demonstrates encapsulation.\n",
+        "\n",
+        "class Library:\n",
+        "    def __init__(self, initial_book_count):\n",
+        "        # Private attribute using name mangling for encapsulation\n",
+        "        self.__total_books = initial_book_count\n",
+        "        # Private attribute for the count of available books\n",
+        "        self.__available_books_count = initial_book_count\n",
+        "\n",
+        "    # Public method to display information, accessing private attributes\n",
+        "    def display_library_status(self):\n",
+        "        print(f'Total books in library: {self.__total_books}')\n",
+        "        print(f'Currently available books: {self.__available_books_count}')\n",
+        "\n",
+        "    # Public method to get the number of available books (getter)\n",
+        "    def get_available_books_count(self):\n",
+        "        return self.__available_books_count\n",
+        "\n",
+        "    # Public method to simulate borrowing a book (modifies private attribute)\n",
+        "    def borrow_book(self):\n",
+        "        if self.__available_books_count > 0:\n",
+        "            self.__available_books_count -= 1\n",
+        "            print(\"A book has been borrowed.\")\n",
+        "        else:\n",
+        "            print(\"No books currently available to borrow.\")\n",
+        "\n",
+        "    # Public method to simulate returning a book (modifies private attribute)\n",
+        "    def return_book(self):\n",
+        "        if self.__available_books_count < self.__total_books:\n",
+        "            self.__available_books_count += 1\n",
+        "            print(\"A book has been returned.\")\n",
+        "        else:\n",
+        "            print(\"Cannot return more books than the library has.\")\n",
+        "\n",
+        "my_library = Library(initial_book_count=20) # Initialize with 20 books\n",
+        "\n",
+        "print(\"--- Initial Status ---\")\n",
+        "my_library.display_library_status()\n",
+        "\n",
+        "print(\"\\n--- Borrowing books ---\")\n",
+        "my_library.borrow_book()\n",
+        "my_library.borrow_book()\n",
+        "my_library.display_library_status()\n",
+        "\n",
+        "print(\"\\n--- Checking available count ---\")\n",
+        "print(f\"Available books via getter: {my_library.get_available_books_count()}\")\n",
+        "\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ydXSXI0lSbeS",
+        "outputId": "fd7f6c0d-f9b3-466e-9fe3-0d4ec3dd0ffc"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "--- Initial Status ---\n",
+            "Total books in library: 20\n",
+            "Currently available books: 20\n",
+            "\n",
+            "--- Borrowing books ---\n",
+            "A book has been borrowed.\n",
+            "A book has been borrowed.\n",
+            "Total books in library: 20\n",
+            "Currently available books: 18\n",
+            "\n",
+            "--- Checking available count ---\n",
+            "Available books via getter: 18\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# ACCOUNT management system\n",
+        "# name, balance -> private\n",
+        "class Account:\n",
+        "    def __init__(self, name, balance):\n",
+        "        self.__name = name  # Private attribute for account holder's name\n",
+        "        self.__balance = balance  # Private attribute for account balance\n",
+        "\n",
+        "    # Public method to display account details (getter-like functionality)\n",
+        "    def display(self):\n",
+        "        print(f'Account Holder: {self.__name}')\n",
+        "        print(f'Current Balance: ${self.__balance:.2f}')\n",
+        "\n",
+        "    # Public method to deposit money (modifies private attribute)\n",
+        "    def deposit(self, amount):\n",
+        "        if amount > 0:\n",
+        "            self.__balance += amount\n",
+        "            print(f'Deposited ${amount:.2f}. New balance: ${self.__balance:.2f}')\n",
+        "        else:\n",
+        "            print('Deposit amount must be positive.')\n",
+        "\n",
+        "    # Public method to withdraw money (modifies private attribute)\n",
+        "    def withdraw(self, amount):\n",
+        "        if amount > 0:\n",
+        "            if self.__balance >= amount:\n",
+        "                self.__balance -= amount\n",
+        "                print(f'Withdrew ${amount:.2f}. New balance: ${self.__balance:.2f}')\n",
+        "            else:\n",
+        "                print('Insufficient funds.')\n",
+        "        else:\n",
+        "            print('Withdrawal amount must be positive.')\n",
+        "\n",
+        "    # Public method to get the current balance (getter)\n",
+        "    def get_balance(self):\n",
+        "        return self.__balance\n",
+        "\n",
+        "\n",
+        "print(\"--- Creating Account ---\")\n",
+        "my_account = Account(\"Alice Smith\", 1000.00)\n",
+        "my_account.display()\n",
+        "\n",
+        "print(\"\\n--- Depositing Funds ---\")\n",
+        "my_account.deposit(500.00)\n",
+        "my_account.deposit(-50.00) # Invalid deposit\n",
+        "my_account.display()\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ZK-eGm8rWpXa",
+        "outputId": "8d3e8b68-dc1d-44ee-9f5a-08cb42c45171"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "--- Creating Account ---\n",
+            "Account Holder: Alice Smith\n",
+            "Current Balance: $1000.00\n",
+            "\n",
+            "--- Depositing Funds ---\n",
+            "Deposited $500.00. New balance: $1500.00\n",
+            "Deposit amount must be positive.\n",
+            "Account Holder: Alice Smith\n",
+            "Current Balance: $1500.00\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
