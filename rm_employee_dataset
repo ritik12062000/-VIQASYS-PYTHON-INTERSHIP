@@ -1,0 +1,583 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "private_outputs": true,
+      "provenance": [],
+      "authorship_tag": "ABX9TyOohpw/ZuSlz8WzTYH/2Q/G",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ritik12062000/regex-internship-/blob/main/rm_employee_dataset\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "7hWuDhYz58hg"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# load dataset\n",
+        "df=pd.read_csv('/content/trainingdata.csv')\n",
+        "df"
+      ],
+      "metadata": {
+        "id": "ZIvesXgW7Lqo"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.head()"
+      ],
+      "metadata": {
+        "id": "1ev6AB4t8WJq"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.tail()"
+      ],
+      "metadata": {
+        "id": "IAY5TFW68hCO"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.columns"
+      ],
+      "metadata": {
+        "id": "ZGpaaMYP9QZ0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.shape"
+      ],
+      "metadata": {
+        "id": "hk5GVaOD9VL2"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.info()"
+      ],
+      "metadata": {
+        "id": "SKeAWEJ79Zeb"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.describe()"
+      ],
+      "metadata": {
+        "id": "PjJGDsyj9gA0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.duplicated().sum()"
+      ],
+      "metadata": {
+        "id": "M1KtdNEe9l9t"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "List all categorical features\n",
+        " #df.select_dtypes(include='object') → Selects all columns with the object data type (typically text/categorical columns).\n",
+        "#.columns → Gets the names of those columns.\n",
+        "#.tolist() → Converts the column names into a Python list.\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "2EULcXtg-Dec"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        " categorical_features = df.select_dtypes(include='object').columns.tolist()\n",
+        "print(\"Categorical Features:\")\n",
+        "for feature in categorical_features:\n",
+        "    print(feature)"
+      ],
+      "metadata": {
+        "id": "ZWL0ii9F9v0F"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.dtypes"
+      ],
+      "metadata": {
+        "id": "SJqyBxL0-63M"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Histogram"
+      ],
+      "metadata": {
+        "id": "ruDAQrIPJKij"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "\n",
+        "numerical_features = df.select_dtypes(include=['int64', 'float64']).columns.tolist()\n",
+        "\n",
+        "for feature in numerical_features:\n",
+        "    plt.figure(figsize=(10, 6))\n",
+        "    sns.histplot(df[feature], kde=True)\n",
+        "    plt.title(f'Distribution of {feature.replace(\"_\", \" \").title()}')\n",
+        "    plt.xlabel(feature.replace(\"_\", \" \").title())\n",
+        "    plt.ylabel('Frequency')\n",
+        "    plt.grid(axis='y', linestyle='--', alpha=0.7)\n",
+        "    plt.show()"
+      ],
+      "metadata": {
+        "id": "xYaDsLUgJJ9J"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Understand the Dataset\n",
+        "1. Identify the target variable\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "ga3PlWYu_Z_T"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Based on the assignment objective (Multiple Linear Regression empolyee salary),\n",
+        "# 'salary' is identified as the target variable.\n",
+        "print(\"Target Variable: salary\")"
+      ],
+      "metadata": {
+        "id": "aRA0k99J_d2a"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Numerical columns\n"
+      ],
+      "metadata": {
+        "id": "Sf4vVITiAcJP"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "This code automatically detects all numerical columns in a dataset and stores their names in a list. These columns are later used for preprocessing tasks such as handling missing values (mean/median), feature scaling (StandardScaler or MinMaxScaler), outlier detection, and building machine learning pipelines."
+      ],
+      "metadata": {
+        "id": "aWzw8p7vAwRT"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "numerical_features = df.select_dtypes(include=['int64', 'float64']).columns.tolist()\n",
+        "print(\"Numerical Features:\")\n",
+        "for feature in numerical_features:\n",
+        "    print(feature)"
+      ],
+      "metadata": {
+        "id": "dNwLUkBj_-U-"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "box plot\n"
+      ],
+      "metadata": {
+        "id": "XMOnyMxSKrJN"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for feature in numerical_features:\n",
+        "    plt.figure(figsize=(10, 6))\n",
+        "    sns.boxplot(y=df[feature])\n",
+        "    plt.title(f'Boxplot of {feature.replace(\"_\", \" \").title()}')\n",
+        "    plt.ylabel(feature.replace(\"_\", \" \").title())\n",
+        "    plt.grid(axis='y', linestyle='--', alpha=0.7)\n",
+        "    plt.show()"
+      ],
+      "metadata": {
+        "id": "Gs2e6hUbIgp_"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.select_dtypes(exclude='object').skew()"
+      ],
+      "metadata": {
+        "id": "Y6dn__HQMQjl"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Encoding Categorical Variables\n",
+        "identify all categorical columns.\n"
+      ],
+      "metadata": {
+        "id": "UticDGgDNKqb"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"Categorical features identified for encoding:\")\n",
+        "display(categorical_features)"
+      ],
+      "metadata": {
+        "id": "oFXrv2M_NKVL"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Apply One-Hot Encoding."
+      ],
+      "metadata": {
+        "id": "8QabxuVGNT-_"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        " df_encoded = pd.get_dummies(df, columns=categorical_features, drop_first=True) # drop_first=True to avoid multicollinearity\n",
+        "\n",
+        "print(\"DataFrame after One-Hot Encoding:\")\n",
+        "display(df_encoded.head())\n",
+        "print(f\"Original shape: {df.shape}, New shape: {df_encoded.shape}\")"
+      ],
+      "metadata": {
+        "id": "gP6IYqC0Mhi3"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Feature Scaling"
+      ],
+      "metadata": {
+        "id": "ckTqliULN0Nh"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        " from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler\n",
+        "\n",
+        "# Select numerical features (excluding target variable)\n",
+        "features = df.select_dtypes(include=['int64', 'float64']).drop('Salary', axis=1)\n",
+        "\n",
+        "# Standard Scaler\n",
+        "standard_scaler = StandardScaler()\n",
+        "standard_scaled = standard_scaler.fit_transform(features)\n",
+        "\n",
+        "# Min-Max Scaler\n",
+        "minmax_scaler = MinMaxScaler()\n",
+        "minmax_scaled = minmax_scaler.fit_transform(features)\n",
+        "\n",
+        "# Robust Scaler\n",
+        "robust_scaler = RobustScaler()\n",
+        "robust_scaled = robust_scaler.fit_transform(features)\n",
+        "\n",
+        "# Display first 5 rows\n",
+        "print(\"StandardScaler\")\n",
+        "print(standard_scaled[:5])\n",
+        "\n",
+        "print(\"\\nMinMaxScaler\")\n",
+        "print(minmax_scaled[:5])\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "8Zsy3ICaNBg0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "x=df.drop(['Salary','Job Title','Employee_ID'],axis=1)\n",
+        "y=df['Salary']"
+      ],
+      "metadata": {
+        "id": "0l6491bRPoka"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "from sklearn.metrics import mean_squared_error, r2_score\n",
+        "\n",
+        "# Handle missing values in df_encoded before proceeding\n",
+        "df_encoded = df_encoded.dropna()\n",
+        "\n",
+        "# Define the target variable 'y'\n",
+        "y = df_encoded['Salary']\n",
+        "\n",
+        "# Redefine the feature set 'x' using the one-hot encoded DataFrame, dropping 'Salary' and 'Employee_ID'\n",
+        "x = df_encoded.drop(['Salary', 'Employee_ID'], axis=1)\n",
+        "\n",
+        "# Split the data into training and testing sets\n",
+        "x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)\n",
+        "\n",
+        "\n",
+        "model=LinearRegression()\n",
+        "model.fit(x_train,y_train)"
+      ],
+      "metadata": {
+        "id": "8FjMK3p8OOWG"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.metrics import mean_squared_error, r2_score"
+      ],
+      "metadata": {
+        "id": "ZlbAbFGwRQP3"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "y_pred = model.predict(x_test)"
+      ],
+      "metadata": {
+        "id": "8xxUXztlRVsN"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "r2_score(y_test,y_pred)\n"
+      ],
+      "metadata": {
+        "id": "4fCvJ6O5RXTo"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df2=pd.read_csv('/content/test.csv')"
+      ],
+      "metadata": {
+        "id": "H9VZuWSLRw7Q"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df2"
+      ],
+      "metadata": {
+        "id": "TKrdDxTHSAXj"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "encoding\n"
+      ],
+      "metadata": {
+        "id": "fMOt1qJ5SdUL"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "numerical_features = df.select_dtypes(include=['int64', 'float64']).columns.tolist()\n",
+        "print(\"Numerical Features:\")\n",
+        "for feature in numerical_features:\n",
+        "    print(feature)"
+      ],
+      "metadata": {
+        "id": "_hcAVK6KSPGG"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "categorical columns"
+      ],
+      "metadata": {
+        "id": "PiIFvByASwbT"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "categorical_features = df.select_dtypes(include='object').columns.tolist()\n",
+        "print(\"Categorical Features:\")\n",
+        "for feature in categorical_features:\n",
+        "    print(feature)"
+      ],
+      "metadata": {
+        "id": "Goe2P-6LTIoE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "prediction"
+      ],
+      "metadata": {
+        "id": "_B73yx5NTr5c"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model.fit(x_train, y_train)"
+      ],
+      "metadata": {
+        "id": "vN0DDo_5TLXn"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.metrics import mean_squared_error, r2_score"
+      ],
+      "metadata": {
+        "id": "s5I-q9foT2xG"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "y_pred = model.predict(x_test)"
+      ],
+      "metadata": {
+        "id": "Gejn0WXrT-dh"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "r2_score(y_test,y_pred)"
+      ],
+      "metadata": {
+        "id": "qu2AGHnTUHqV"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
